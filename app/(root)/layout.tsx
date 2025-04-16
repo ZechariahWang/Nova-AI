@@ -5,9 +5,13 @@ import { isAuthenticated } from '@/lib/actions/auth.action'
 import { redirect } from 'next/navigation'
 
 const RootLayout = async ({children}: {children: ReactNode}) => {
-  // const isUserAuthenticated = await isAuthenticated();
-  // if (!isUserAuthenticated) redirect("/sign-in");
-  
+  try {
+    const isUserAuthenticated = await isAuthenticated();
+    if (!isUserAuthenticated) redirect("/sign-in");
+  } catch (error) {
+    console.error('Root layout error:', error);
+    redirect("/sign-in");
+  }
 
   return (
     <div className='root-layout'>
