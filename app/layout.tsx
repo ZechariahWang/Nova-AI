@@ -9,8 +9,15 @@ const monaSans = Mona_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "PrepWise",
-  description: "AI Powered Platform for prepping for interviews",
+  title: "Waterloo Interview Trainer",
+  description: "AI Powered Platform for preparing for coop interviews",
+  icons: {
+    icon: [
+      { url: "/waterloo_logo.png", type: "image/png" },
+    ],
+    shortcut: "/waterloo_logo.png",
+    apple: "/waterloo_logo.png",
+  },
 };
 
 export default function RootLayout({
