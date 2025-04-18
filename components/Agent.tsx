@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { StringValidation } from 'zod';
 import { vapi } from '@/lib/vapi.sdk';
 import { interviewer } from '@/constants';
+import { createFeedback } from '@/lib/actions/general.action';
 
 enum CallStatus {
     INACTIVE = 'INACTIVE',
@@ -78,12 +79,20 @@ const Agent = ({ userName, userId, type, interviewId, questions }: AgentProps) =
   }, [])
 
   const handleGenerateFeedback = async (messages: SavedMessages[]) => {
-
     console.log("generate feedback here");
-    const { success, id } = {
-      success: true,
-      id: "feedback-id"
-    }
+    const response = await fetch('/api/feedback', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        interviewId: interviewId!,
+        userId: userId!,
+        transcript: messages,
+      }),
+    });
+    
+    const { success, feedbackId: id } = await response.json();
 
     if (success && id) {
       router.push(`/interview/${interviewId}/feedback`);

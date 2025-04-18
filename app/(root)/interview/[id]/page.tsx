@@ -1,5 +1,5 @@
 import React from "react";
-import { getInterviewsById } from "@/lib/actions/general.action";
+import { getInterviewById } from "@/lib/actions/general.action";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import DisplayTechIcons from "@/components/DisplayTechIcons";
@@ -10,7 +10,7 @@ import { getRandomInterviewCover } from "@/lib/utils";
 const Page = async ({ params }: RouteParams) => {
   const user = await getCurrentUser();
   const { id } = await params;
-  const interview = await getInterviewsById(id);
+  const interview = await getInterviewById(id);
 
   if (!interview) {
     redirect("/");
