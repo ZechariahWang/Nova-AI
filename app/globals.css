@@ -5,10 +5,10 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-success-100: #49de50;
-  --color-success-200: #42c748;
-  --color-destructive-100: #f75353;
-  --color-destructive-200: #c44141;
+  --color-success-100: #00ffc3;
+  --color-success-200: #00e6b0;
+  --color-destructive-100: #ff34a1;
+  --color-destructive-200: #c92a80;
 
   --color-primary-100: #dddfff;
   --color-primary-200: #cac5fe;
@@ -175,10 +175,17 @@
     @apply flex min-h-14 w-full items-center justify-center gap-1.5 rounded-md;
   }
   .btn-primary {
-    @apply w-fit !bg-primary-200 !text-dark-100 hover:!bg-primary-200/80 !rounded-full !font-bold px-5 cursor-pointer min-h-10;
+    @apply w-fit !text-dark-100 hover:!bg-primary-200/80 !rounded-full !font-bold px-5 cursor-pointer min-h-10;
+    background: linear-gradient(to right, #ff34a1 5%, #00ffc3);
   }
   .btn-secondary {
-    @apply w-fit !bg-dark-200 !text-primary-200 hover:!bg-dark-200/80 !rounded-full !font-bold px-5 cursor-pointer min-h-10;
+    @apply w-fit  hover:!bg-primary-200/80 !rounded-full !font-bold px-5 cursor-pointer min-h-10;
+    background: linear-gradient(to right, #00ffc3 5%, #00ffc3);
+  }
+
+  .btn-sign-out {
+    @apply w-fit  hover:!bg-primary-200/80 !rounded-full !font-bold px-5 cursor-pointer min-h-10;
+    background: linear-gradient(to right, #9e14a6 5%, #ff34a1);
   }
 
   .btn-upload {
@@ -187,6 +194,7 @@
 
   .card-border {
     @apply border-gradient p-0.5 rounded-2xl w-fit;
+    border-color: #00ffc3;
   }
 
   .card {
@@ -206,6 +214,7 @@
 
     .btn {
       @apply !w-full !bg-primary-200 !text-dark-100 hover:!bg-primary-200/80 !rounded-full !min-h-10 !font-bold !px-5 cursor-pointer;
+      background: linear-gradient(to right, #ff34a1 5%, #00ffc3);
     }
   }
 
@@ -217,7 +226,7 @@
     }
 
     .card-interviewer {
-      @apply flex-center flex-col gap-2 p-7 h-[400px] blue-gradient-dark rounded-lg border-2 border-primary-200/50 flex-1 sm:basis-1/2 w-full;
+      @apply flex-center flex-col gap-2 p-7 h-[400px] blue-gradient-dark rounded-lg border-2 flex-1 sm:basis-1/2 w-full;
     }
 
     .avatar {
@@ -238,10 +247,10 @@
   }
 
   .transcript-border {
-    @apply border-gradient p-0.5 rounded-2xl w-full;
+    @apply p-0.5 rounded-2xl w-full;
 
     .transcript {
-      @apply dark-gradient rounded-2xl  min-h-12 px-5 py-3 flex items-center justify-center;
+      @apply dark-gradient rounded-2xl min-h-12 px-5 py-3 flex items-center justify-center;
 
       p {
         @apply text-lg text-center text-white;
@@ -250,7 +259,8 @@
   }
 
   .section-feedback {
-    @apply flex flex-col gap-8 max-w-5xl mx-auto max-sm:px-4 text-lg leading-7;
+    @apply flex flex-col gap-8 max-w-5xl mx-auto max-sm:px-4 text-lg leading-7 rounded-lg;
+    background: linear-gradient(to right, #0f0f0f, #0f0e0e);
 
     .buttons {
       @apply flex w-full justify-evenly gap-4 max-sm:flex-col max-sm:items-center;
@@ -266,7 +276,15 @@
   }
 
   .card-cta {
-    @apply flex flex-row blue-gradient-dark rounded-3xl px-16 py-6 items-center justify-between max-sm:px-4;
+    @apply flex flex-row rounded-3xl px-16 py-6 items-center justify-between max-sm:px-4;
+    background: rgb(22,22,22);
+  }
+
+  .card-cta p {
+    background: linear-gradient(to right, #ff34a1 5%, #00ffc3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .interviews-section {
@@ -287,9 +305,11 @@
 
   .card-interview {
     @apply dark-gradient rounded-2xl min-h-full flex flex-col p-6 relative overflow-hidden gap-10 justify-between;
+    background: rgb(22,22,22);
 
     .badge-text {
       @apply text-sm font-semibold capitalize;
+      color: #00ffc3;
     }
   }
 }
@@ -303,7 +323,7 @@
 }
 
 @utility pattern {
-  @apply bg-[url('/pattern.png')] bg-top bg-no-repeat;
+  @apply bg-[url('/BackgroundImage.png')] bg-top bg-no-repeat;
 }
 
 @utility blue-gradient-dark {

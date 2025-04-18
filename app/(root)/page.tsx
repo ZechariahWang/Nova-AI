@@ -19,11 +19,11 @@ const page = async () => {
 
   return (
     <>
-      <section className='card-cta'>
+      <section className='card-cta shadow-[0_10px_10px_0_#00ffc3]'>
         <div className="flex flex-col gap-6 max-w-lg">
-            <h2>Get Interview-Ready with AI-Powered Practice & Feedback</h2>
-            <p className="text-lg">
-              Practice real interview questions & get instant feedback
+            <h2 className='text-white'>Welcome, {user?.name}</h2>
+            <p className="text-lg text-white">
+              Let's do an interview. Click the button below to start.
             </p>
 
             <Button asChild className="btn-primary max-sm:w-full">
@@ -31,10 +31,10 @@ const page = async () => {
             </Button>
           </div>
 
-        <Image src="/robot.png" alt="robo-dude" width={400} height={400} className='max-sm:hidden' />
+        <Image src="/waterloo_logo.png" alt="robo-dude" width={250} height={250} className='max-sm:hidden' />
       </section>
 
-      <section className='flex flex-col gap-6 mt-8'>
+      <section className='flex flex-col gap-6 mt-8 bg-[rgb(22,22,22)] rounded-3xl p-8 shadow-[0_10px_10px_0_#00ffc3]'>
         <h2>Your interviews</h2>
 
         <div className='interviews-section'>
@@ -51,15 +51,15 @@ const page = async () => {
                 />
               ))
             ) : (
-              <p>You haven&apos;t taken any interviews yet</p>
+              <p className='text-white'>You haven&apos;t taken any interviews yet</p>
             )}
         </div>
       </section>
 
-      <section className="flex flex-col gap-6 mt-8">
+      <section className="flex flex-col gap-6 mt-8 bg-[rgb(22,22,22)] rounded-3xl p-8 w-full shadow-[0_10px_10px_0_#00ffc3]">
         <h2>Take Interviews</h2>
 
-        <div className="interviews-section">
+        <div className="interviews-section flex flex-wrap gap-4 justify-center">
           {hasUpcomingInterviews ? (
             allInterview?.map((interview) => (
               <InterviewCard

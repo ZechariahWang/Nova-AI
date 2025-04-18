@@ -89,19 +89,18 @@ const AuthForm = ({ type }: { type: FormType }) => {
   const isSignIn = type === 'sign-in';
 
   return (
-    <div className="card-border lg:min-w-[566px]">
+    <div className="lg:min-w-[566px] shadow-[0_10px_10px_0_#00ffc3] transcript-border">
       <div className="flex flex-col gap-6 card py-14 px-10">
         <div className="flex flex-row gap-2 justify-center">
-          <Image src="/logo.svg" alt="logo" height={32} width={38} />
-          <h2 className="text-primary-100">idfk what this is</h2>
+          <h2 className="text-white font-bold">Interviews made easy</h2>
         </div>
+        <h3 className="text-white text-center font-light text-sm">Powered by AI</h3>
 
-        <h3>AI thingy</h3>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="
-                w-full space-y-6 mt-4 form"
+                w-full space-y-6 mt-4 form text-white"
           >
             {!isSignIn && (
               <FormField
@@ -126,17 +125,17 @@ const AuthForm = ({ type }: { type: FormType }) => {
                 type="password"
               />
 
-            <Button className="btn" type="submit">
+            <Button className="btn text-white" type="submit">
               {isSignIn ? "Sign In" : "Create an Account"}
             </Button>
           </form>
         </Form>
 
-        <p className="text-center">
+        <p className="text-center text-white">
           {isSignIn ? "No account yet?" : "Have an account already?"}
           <Link
             href={!isSignIn ? "/sign-in" : "/sign-up"}
-            className="font-bold text-user-primary ml-1"
+            className="font-bold text-user-primary ml-1 text-white"
           >
             {!isSignIn ? "Sign In" : "Sign Up"}
           </Link>

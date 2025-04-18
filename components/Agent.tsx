@@ -150,73 +150,98 @@ const Agent = ({ userName, userId, type, interviewId, questions }: AgentProps) =
 
     return (
       <>
-        <div className="call-view">
-          <div className="card-interviewer">
-            <div className="avatar">
-              <Image
-                src="/ai-avatar.png"
-                alt="vapi"
-                width={65}
-                height={54}
-                className="object-cover"
-              />
+        <div className="flex flex-row gap-8">
+          <div className="flex-1">
+            <div className="call-view">
+              <div className="card-interviewer shadow-[0_10px_10px_0_#00ffc3] bg-gradient-to-r from-[#0f0f0f] to-[#0f0e0e] rounded-lg">
+                <div className="avatar">
+                  <Image
+                    src="/AIICON.jpg"
+                    alt="vapi"
+                    width={650}
+                    height={54}
+                    className="object-cover rounded-full"
+                  />
 
-              {isSpeaking && <span className="animate-speak" />}
+                  {isSpeaking && <span className="animate-speak" />}
+                </div>
+                <h3>AI Interviewer</h3>
+              </div>
+              <div className="card-border shadow-[0_10px_10px_0_#ff34a1] bg-gradient-to-r from-[#0f0f0f] to-[#0f0e0e] rounded-lg">
+                <div className="card-content">
+                  <Image
+                    src="/userMaybe.jpg"
+                    alt="user avatar"
+                    width={550}
+                    height={340}
+                    className="rounded-full object-cover size-[120px]"
+                  />
+                  <h3>{userName}</h3>
+                </div>
+              </div>
             </div>
-            <h3>AI Interviewer</h3>
-          </div>
-          <div className="card-border">
-            <div className="card-content">
-              <Image
-                src="/user-avatar.png"
-                alt="user avatar"
-                width={650}
-                height={540}
-                className="rounded-full object-cover size-[120px]"
-              />
-              <h3>{userName}</h3>
-            </div>
-          </div>
-        </div>
 
-        {messages.length > 0 && (
-        <div className="transcript-border">
-          <div className="transcript">
-            <p
-              key={latestMessage}
-              className={cn(
-                "transition-opacity duration-500 opacity-0",
-                "animate-fadeIn opacity-100"
-              )}
-            >
-              {latestMessage}
-            </p>
-          </div>
-        </div>
-      )}
-
-        <div className='w-full flex justify-center'>
-            {callStatus !== 'ACTIVE' ? (
+            <div className='w-full flex justify-center mt-8 '>
+              {callStatus !== 'ACTIVE' ? (
                 <button className='relative btn-call' onClick={handleCall}>
-                    <span
+                  <span
                     className={cn(
-                        "absolute animate-ping rounded-full opacity-75",
-                        callStatus !== "CONNECTING" && "hidden"
+                      "absolute animate-ping rounded-full opacity-75",
+                      callStatus !== "CONNECTING" && "hidden"
                     )}
-                    />
-
-                    <span className="relative">
-                      { isCallInactiveOrFinished ? 'Call' : '. . .'}
-                    </span>
-
-
+                  />
+                  <span className="relative text-black">
+                    {isCallInactiveOrFinished ? 'Call' : '. . .'}
+                  </span>
                 </button>
-            ) : (
-                <button className='btn-disconnect' onClick={handleDisconnect}>
-                    End
+              ) : (
+                <button className='btn-disconnect text-black' onClick={handleDisconnect}>
+                  End
                 </button>
-            )}
+              )}
+            </div>
+          </div>
 
+          <div className="w-[400px] h-[500px] flex flex-col">
+            <div className="transcript-border shadow-[0_10px_10px_0_#428fed] h-full overflow-hidden">
+              <div className="transcript h-full overflow-y-auto font-bold bg-[#1a1a1a] p-4 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-[#1a1a1a] [&::-webkit-scrollbar-thumb]:bg-[#282828] [&::-webkit-scrollbar-thumb]:rounded-full">
+                {messages.length > 0 ? (
+                  <div className="space-y-2">
+                    {messages.map((message, index) => (
+                      <div 
+                        key={index}
+                        className={cn(
+                          "text-sm",
+                          message.role === 'user' ? "text-[#00ffc3]" : "text-[#ff34a1]"
+                        )}
+                      >
+                        <div className="flex flex-col">
+                          <div className="flex items-start gap-2">
+                            <span className="text-gray-400 shrink-0">
+                              {message.role === 'user' ? `[${userName}]` : '[AI]'}:
+                            </span>
+                            <span
+                              className={cn(
+                                "transition-opacity duration-500 opacity-0 whitespace-pre-wrap",
+                                "animate-fadeIn opacity-100"
+                              )}
+                            >
+                              {message.content}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-gray-400 text-center py-8">
+                    <p>Chat log will appear here</p>
+                    <p className="text-sm mt-2">Start the interview to see messages</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </>
     );
