@@ -89,7 +89,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
   const isSignIn = type === 'sign-in';
 
   return (
-    <div className="lg:min-w-[566px] shadow-[0_10px_10px_0_#00ffc3] transcript-border">
+    <div className="lg:min-w-[566px] shadow-[0_0_20px_0_#00ffc3] transcript-border">
       <div className="flex flex-col gap-6 card py-14 px-10">
         <div className="flex flex-row gap-2 justify-center">
           <h2 className="text-white font-bold">Interviews made easy</h2>
@@ -135,7 +135,8 @@ const AuthForm = ({ type }: { type: FormType }) => {
           {isSignIn ? "No account yet?" : "Have an account already?"}
           <Link
             href={!isSignIn ? "/sign-in" : "/sign-up"}
-            className="font-bold text-user-primary ml-1 text-white"
+            className="font-bold ml-1 text-transparent bg-clip-text bg-[linear-gradient(90deg,_#ff34a1_5%,_#00ffc3)]"
+
           >
             {!isSignIn ? "Sign In" : "Sign Up"}
           </Link>

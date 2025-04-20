@@ -34,7 +34,7 @@ const page = async () => {
         <Image src="/waterloo_logo.png" alt="robo-dude" width={250} height={250} className='max-sm:hidden' />
       </section>
 
-      <section className='flex flex-col gap-6 mt-8 bg-[rgb(22,22,22)] rounded-3xl p-8 shadow-[0_10px_10px_0_#00ffc3]'>
+      <section className='flex flex-col gap-6 mt-8 bg-[rgb(22,22,22)] rounded-3xl p-8 shadow-[0_10px_10px_0_#ff34a1]'>
         <h2>Your interviews</h2>
 
         <div className='interviews-section'>
@@ -56,7 +56,7 @@ const page = async () => {
         </div>
       </section>
 
-      <section className="flex flex-col gap-6 mt-8 bg-[rgb(22,22,22)] rounded-3xl p-8 w-full shadow-[0_10px_10px_0_#00ffc3]">
+      <section className="flex flex-col gap-6 mt-8 bg-[rgb(22,22,22)] rounded-3xl p-8 w-full shadow-[0_10px_10px_0_#428fed]">
         <h2>Take Interviews</h2>
 
         <div className="interviews-section flex flex-wrap gap-4 justify-center">

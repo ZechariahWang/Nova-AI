@@ -178,13 +178,41 @@
     @apply w-fit !text-dark-100 hover:!bg-primary-200/80 !rounded-full !font-bold px-5 cursor-pointer min-h-10;
     background: linear-gradient(to right, #ff34a1 5%, #00ffc3);
   }
+
   .btn-secondary {
     @apply w-fit  hover:!bg-primary-200/80 !rounded-full !font-bold px-5 cursor-pointer min-h-10;
-    background: linear-gradient(to right, #00ffc3 5%, #00ffc3);
+    background: linear-gradient(to right, #15bc98 5%, #15bc98);
+  }
+
+  .btn-nav {
+    @apply w-fit !rounded-lg !font-bold px-5 cursor-pointer min-h-10 relative overflow-hidden;
+    background: linear-gradient(to right, #15bc98 5%, #15bc98);
+  }
+
+  .btn-nav::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #ff34a1 5%, #00ffc3);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 0;
+  }
+
+  .btn-nav:hover::before {
+    opacity: 1;
+  }
+
+  .btn-nav > * {
+    position: relative;
+    z-index: 1;
   }
 
   .btn-sign-out {
-    @apply w-fit  hover:!bg-primary-200/80 !rounded-full !font-bold px-5 cursor-pointer min-h-10;
+    @apply w-fit  hover:!bg-primary-200/80 !rounded-lg !font-bold px-5 cursor-pointer min-h-10;
     background: linear-gradient(to right, #9e14a6 5%, #ff34a1);
   }
 

@@ -4,7 +4,8 @@ import Image from 'next/image'
 import { isAuthenticated } from '@/lib/actions/auth.action'
 import { redirect } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import SignOutButton from '@/components/SignOutButton'
+import { Video, Home } from 'lucide-react'
+import ProfileDropdown from '@/components/ProfileDropdown'
 
 const RootLayout = async ({children}: {children: ReactNode}) => {
   try {
@@ -17,27 +18,30 @@ const RootLayout = async ({children}: {children: ReactNode}) => {
 
   return (
     <div className='root-layout'>
-      <nav className="flex items-center justify-between p-4">
-        <Link href="/" className="flex items-center gap-2">
+      <nav className="flex flex-col sm:flex-row items-center justify-between p-4 gap-4">
+        <Link href="/" className="flex items-center">
           <h2 className='text-transparent font-bold bg-clip-text bg-gradient-to-r from-[#ff34a1] to-[#00ffc3]'>Waterloo Interview Trainer</h2>
         </Link>
         
-        <div className="flex items-center gap-4">
-        <Button asChild className="btn-secondary">
-            <Link href="/">Home</Link>
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4">
+          <Button asChild className="btn-nav">
+            <Link href="/" className='flex items-center gap-2 text-white'>
+              <Home className="size-4" />
+              <span className="hidden sm:inline">Home</span>
+            </Link>
           </Button>
-          <Button asChild className="btn-secondary">
-            <Link href="/interview">Start Interview</Link>
+          <Button asChild className="btn-nav">
+            <Link href="/interview" className="flex items-center gap-2 text-white">
+              <Video className="size-4" />
+              <span className="hidden sm:inline">Start Interview</span>
+            </Link>
           </Button>
-          <Button asChild className="btn-secondary">
-            <Link href="/profile">Profile</Link>
-          </Button>
-          <SignOutButton />
+          <ProfileDropdown />
         </div>
       </nav>
       {children}
     </div>
-  )
-}
+  );
+};
 
-export default RootLayout
+export default RootLayout;
