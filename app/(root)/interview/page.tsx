@@ -1,4 +1,4 @@
-import Agent from '@/components/Agent'
+import InterviewForm from '@/components/InterviewForm'
 import { getCurrentUser } from '@/lib/actions/auth.action'
 import React from 'react'
 
@@ -6,11 +6,10 @@ const page = async () => {
   const user = await getCurrentUser();
 
   return (
-    <>
-        <h3 className='text-white text-left'>Interview Generation</h3>
-
-        <Agent userName={user?.name!} userId={user?.id} type="generate"/>
-    </>
+    <div className="flex flex-col gap-8">
+      <h3 className='text-white text-left'>Interview Generation</h3>
+      <InterviewForm userId={user?.id!} />
+    </div>
   )
 }
 
