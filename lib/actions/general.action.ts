@@ -10,7 +10,6 @@ export async function getInterviewsByUserId(userId: string) {
       .collection("interviews")
       .where("userId", "==", userId)
       .orderBy("createdAt", "desc")
-      .limit(5)
       .get();
 
     return interviews.docs.map((doc) => ({
