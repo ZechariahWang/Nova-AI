@@ -78,7 +78,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
         });
 
         toast.success("Sign in successful");
-        router.push("/");
+        router.push("/dashboard");
       }
     } catch (error) {
       console.log(error);
@@ -92,9 +92,9 @@ const AuthForm = ({ type }: { type: FormType }) => {
     <div className="lg:min-w-[566px] shadow-[0_0_20px_0_#00ffc3] transcript-border">
       <div className="flex flex-col gap-6 card py-14 px-10">
         <div className="flex flex-row gap-2 justify-center">
-          <h2 className="text-white font-bold">Interview Preparation</h2>
+          <h2 className="text-white font-bold">Nova</h2>
         </div>
-        <h3 className="text-white text-center font-light text-sm">Powered by AI</h3>
+        <h3 className="text-white text-center font-light text-sm">AI Interview Trainer</h3>
 
         <Form {...form}>
           <form

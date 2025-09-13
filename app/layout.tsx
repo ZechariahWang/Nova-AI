@@ -9,15 +9,8 @@ const monaSans = Mona_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Waterloo Interview Trainer",
-  description: "AI Powered Platform for preparing for coop interviews",
-  icons: {
-    icon: [
-      { url: "/waterloo_logo.png", type: "image/png" },
-    ],
-    shortcut: "/waterloo_logo.png",
-    apple: "/waterloo_logo.png",
-  },
+  title: "Nova",
+  description: "Practice interviews with AI-powered simulations and get real-time feedback",
 };
 
 export default function RootLayout({
