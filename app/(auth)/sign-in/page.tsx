@@ -1,12 +1,15 @@
 import AuthForm from '@/components/AuthForm'
-import React from 'react'
+import { Metadata } from 'next'
 
-const page = () => {
+export const metadata: Metadata = {
+  title: 'Sign In | Nova - AI Interview Trainer',
+  description: 'Sign in to your Nova account and continue your interview preparation journey.',
+}
+
+const SignInPage = () => {
   return (
-    <div>
-      <AuthForm type="sign-in"/>
-    </div>
+    <AuthForm type="sign-in" />
   )
 }
 
-export default page
+export default SignInPage

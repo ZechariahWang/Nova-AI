@@ -32,16 +32,15 @@ const LandingPage = () => {
             Master Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff34a1] to-[#00ffc3]">Interview Skills</span>
           </h1>
           <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-            Practice with AI-powered interview simulations. Get real-time feedback, improve your responses,
-            and land your dream job with confidence.
+            Practice with AI-powered interview simulations. Get real-time feedback, improve your responses, and become a better candidate.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button className="btn-primary text-lg px-8 py-4">
-              <Link href="/sign-up">Start Practicing Free</Link>
+              <Link href="/sign-up">Start Practicing</Link>
             </Button>
-            <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20 text-lg px-8 py-4">
+            {/* <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20 text-lg px-8 py-4">
               <Link href="#features">Learn More</Link>
-            </Button>
+            </Button> */}
           </div>
         </div>
 
@@ -72,8 +71,8 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section id="features" className="max-w-7xl mx-auto px-8 py-20">
+
+      {/* <section id="features" className="max-w-7xl mx-auto px-8 py-20">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-white mb-6">
             Why Choose Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff34a1] to-[#00ffc3]">AI Trainer</span>
@@ -120,25 +119,9 @@ const LandingPage = () => {
             </p>
           </div>
         </div>
-      </section>
+      </section>  */}
 
-      {/* CTA Section */}
-      <section className="max-w-7xl mx-auto px-8 py-20">
-        <div className="bg-[rgb(22,22,22)] rounded-3xl p-12 text-center shadow-[0_20px_40px_0_rgba(0,255,195,0.3)]">
-          <h2 className="text-4xl font-bold text-white mb-6">
-            Ready to Ace Your Next Interview?
-          </h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Join thousands of professionals who have improved their interview skills and landed their dream jobs
-          </p>
-          <Button className="btn-primary text-lg px-12 py-4">
-            <Link href="/sign-up">Start Your Free Trial</Link>
-          </Button>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="border-t border-white/10 mt-20">
+      {/* <footer className="border-t border-white/10 mt-20">
         <div className="max-w-7xl mx-auto px-8 py-8">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center gap-3 mb-4 md:mb-0">
@@ -153,7 +136,7 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-      </footer>
+      </footer> */}
     </div>
   )
 }

@@ -77,7 +77,7 @@ const InterviewForm = ({ userId }: InterviewFormProps) => {
       const data = await response.json();
 
       if (data.success) {
-        router.push('/');
+        router.push('/dashboard');
       } else {
         console.error('Failed to generate interview:', data.error);
       }

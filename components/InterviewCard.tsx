@@ -26,78 +26,66 @@ const InterviewCard = async ({
 
   const normalizedType = /mix/gi.test(type) ? "Mixed" : type;
 
-  const badgeColor =
-    {
-      Behavioral: "bg-light-400",
-      Mixed: "bg-light-600",
-      Technical: "bg-light-800",
-    }[normalizedType] || "bg-light-600";
+  const getBadgeColor = (type: string) => {
+    const normalizedType = /mix/gi.test(type) ? "Mixed" : type;
+    return {
+      Behavioral: "bg-blue-500",
+      Mixed: "bg-purple-500",
+      Technical: "bg-green-500",
+    }[normalizedType] || "bg-gray-500";
+  };
 
   const formattedDate = dayjs(
     feedback?.createdAt || createdAt || Date.now()
-  ).format("MMM D, YYYY");
+  ).format("MMM D");
 
   return (
-    <div className="card-border w-[330px] max-sm:w-full min-h-70">
-      <div className="card-interview">
-        <div>
-          <div
-            className={cn(
-              "absolute top-0 right-0 w-fit px-4 py-2 rounded-bl-lg",
-            )}
-          >
-            <p className="badge-text ">{normalizedType}</p>
-          </div>
+    <div className="bg-white/5 rounded-xl p-4 hover:bg-white/8 transition-colors group w-full">
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="text-white font-semibold text-base capitalize">{role}</h3>
+        <span className="text-xs text-gray-400">{formattedDate}</span>
+      </div>
 
-          <Image
-            src={getRandomInterviewCover()}
-            alt="cover-image"
-            width={90}
-            height={90}
-            className="rounded-full object-fit size-[90px]"
-          />
-
-          <h3 className="mt-5 capitalize font-bold">{role} Interview</h3>
-
-          <div className="flex flex-row gap-5 mt-3">
-            <div className="flex flex-row gap-2">
-              {/* <Image
-                src="/calendar.svg"
-                width={22}
-                height={22}
-                alt="calendar"
-              /> */}
-              <p className="text-white">{formattedDate}</p>
-            </div>
-
-            <div className="flex flex-row gap-2 items-center">
-              {/* <Image src="/star.svg" width={22} height={22} alt="star" /> */}
-              <p className="text-white">{feedback?.totalScore || "---"}/100</p>
-            </div>
-          </div>
-
-          <p className="line-clamp-2 mt-5 text-white">
-            {feedback?.finalAssessment ||
-              "You haven't taken this interview yet. Take it now to improve your skills."}
-          </p>
-        </div>
-
-        <div className="flex flex-row justify-between">
-          <DisplayTechIcons techStack={techstack} />
-
-          <Button className="btn-primary">
-            <Link
-              href={
-                feedback
-                  ? `/interview/${interviewId}/feedback`
-                  : `/interview/${interviewId}`
-              }
-            >
-              {feedback ? "Check Feedback" : "View Interview"}
-            </Link>
-          </Button>
+      <div className="flex items-center gap-3 mb-3">
+        <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium text-white ${getBadgeColor(type)}`}>
+          {normalizedType}
+        </span>
+        <div className="flex gap-2">
+          {techstack.slice(0, 2).map((tech, i) => (
+            <span key={i} className="text-xs bg-white/10 px-2 py-1 rounded-md text-gray-300">
+              {tech}
+            </span>
+          ))}
+          {techstack.length > 2 && (
+            <span className="text-xs text-gray-400">+{techstack.length - 2}</span>
+          )}
         </div>
       </div>
+
+      <div className="flex items-center gap-4 mb-3">
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 bg-[#00ffc3] rounded-full"></div>
+          <span className="text-xs text-gray-400">Score</span>
+          <span className="text-sm font-medium text-white">{feedback?.totalScore || "---"}/100</span>
+        </div>
+      </div>
+
+      <p className="text-sm text-gray-300 mb-4 line-clamp-2">
+        {feedback?.finalAssessment ||
+          "You haven't taken this interview yet. Take it now to improve your skills."}
+      </p>
+
+      <Button className="btn-primary text-xs px-4 py-2 w-full opacity-0 group-hover:opacity-100 transition-opacity">
+        <Link
+          href={
+            feedback
+              ? `/interview/${interviewId}/feedback`
+              : `/interview/${interviewId}`
+          }
+        >
+          {feedback ? "View Feedback" : "Start Interview"}
+        </Link>
+      </Button>
     </div>
   );
 };
