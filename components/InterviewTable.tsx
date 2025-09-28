@@ -33,11 +33,14 @@ const InterviewTable = async ({ interviews, userId, title, shadowColor = "#ff34a
   );
 
   const getBadgeColor = (type: string) => {
-    const normalizedType = /mix/gi.test(type) ? "Mixed" : type;
+    const normalizedType = /mix/gi.test(type) ? "Mixed" :
+      type === "coding" ? "Coding" :
+      type.charAt(0).toUpperCase() + type.slice(1).toLowerCase();
     return {
       Behavioral: "bg-blue-500",
       Mixed: "bg-purple-500",
       Technical: "bg-green-500",
+      Coding: "bg-orange-500",
     }[normalizedType] || "bg-gray-500";
   };
 
@@ -65,7 +68,9 @@ const InterviewTable = async ({ interviews, userId, title, shadowColor = "#ff34a
             </thead>
             <tbody>
               {interviewsWithFeedback.map((interview) => {
-                const normalizedType = /mix/gi.test(interview.type) ? "Mixed" : interview.type;
+                const normalizedType = /mix/gi.test(interview.type) ? "Mixed" :
+                  interview.type === "coding" ? "Coding" :
+                  interview.type.charAt(0).toUpperCase() + interview.type.slice(1).toLowerCase();
                 const formattedDate = dayjs(
                   interview.feedback?.createdAt || interview.createdAt || Date.now()
                 ).format("MMM D, YYYY");

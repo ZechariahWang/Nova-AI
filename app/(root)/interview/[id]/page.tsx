@@ -65,7 +65,7 @@ const Page = async ({ params }: RouteParams) => {
         </div>
 
         {/* Interview Interface */}
-        <Agent userName={user?.name!} userId={user?.id} interviewId={id} type="interview" questions={interview.questions} />
+        <Agent userName={user?.name!} userId={user?.id} interviewId={id} type="interview" interviewType={interview.type} questions={interview.questions} />
       </div>
     </div>
   );

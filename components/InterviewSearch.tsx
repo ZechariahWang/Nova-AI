@@ -51,11 +51,14 @@ export default function InterviewSearch({ interviews, userId, hideSearchBar = fa
   }, [interviews, searchTerm])
 
   const getBadgeColor = (type: string) => {
-    const normalizedType = /mix/gi.test(type) ? "Mixed" : type;
+    const normalizedType = /mix/gi.test(type) ? "Mixed" :
+      type === "coding" ? "Coding" :
+      type.charAt(0).toUpperCase() + type.slice(1).toLowerCase();
     return ({
       Behavioral: "bg-blue-500",
       Mixed: "bg-purple-500",
       Technical: "bg-green-500",
+      Coding: "bg-orange-500",
     }[normalizedType] || "bg-gray-500");
   }
 
@@ -95,7 +98,7 @@ export default function InterviewSearch({ interviews, userId, hideSearchBar = fa
       )}
 
       {/* Results */}
-      <div className="flex-1 overflow-hidden">
+      <div className="flex-1 overflow-hidden relative">
         {filteredInterviews.length === 0 ? (
           <div className="flex-1 flex items-center justify-center">
             <div className="text-center">
@@ -113,32 +116,34 @@ export default function InterviewSearch({ interviews, userId, hideSearchBar = fa
             </div>
           </div>
         ) : (
-          <div className="h-full overflow-y-auto pr-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            <div className="space-y-3">
+          <div className="h-full overflow-y-auto pr-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] relative z-0">
+            <div className="space-y-3 relative z-0">
               {filteredInterviews.map((interview) => {
-                const normalizedType = /mix/gi.test(interview.type) ? "Mixed" : interview.type;
+                const normalizedType = /mix/gi.test(interview.type) ? "Mixed" :
+                  interview.type === "coding" ? "Coding" :
+                  interview.type.charAt(0).toUpperCase() + interview.type.slice(1).toLowerCase();
                 const formattedDate = dayjs(interview.createdAt).format("MMM D");
 
                 return (
-                  <div key={interview.id} className="bg-white/5 rounded-xl p-3 sm:p-4 hover:bg-white/8 transition-colors group">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-1 sm:gap-0">
-                      <h3 className="text-white font-semibold text-sm sm:text-base capitalize truncate">{interview.role}</h3>
-                      <span className="text-xs text-gray-400 whitespace-nowrap">{formattedDate}</span>
+                  <div key={interview.id} className="bg-white/5 rounded-xl p-3 sm:p-4 hover:bg-white/8 transition-colors group overflow-hidden relative z-0">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-1 sm:gap-0 min-w-0 w-full">
+                      <h3 className="text-white font-semibold text-sm sm:text-base capitalize truncate pr-2" style={{maxWidth: 'calc(100% - 80px)'}}>{interview.role}</h3>
+                      <span className="text-xs text-gray-400 whitespace-nowrap flex-shrink-0 absolute top-3 right-3 sm:relative sm:top-auto sm:right-auto">{formattedDate}</span>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0">
-                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 min-w-0">
-                        <span className={`inline-block px-2 sm:px-3 py-1 rounded-full text-xs font-medium text-white ${getBadgeColor(interview.type)} w-fit`}>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0 min-w-0 w-full">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 min-w-0 overflow-hidden w-full">
+                        <span className={`inline-block px-2 sm:px-3 py-1 rounded-full text-xs font-medium text-white ${getBadgeColor(interview.type)} w-fit flex-shrink-0`}>
                           {normalizedType}
                         </span>
-                        <div className="flex gap-1 sm:gap-2 flex-wrap">
+                        <div className="flex gap-1 sm:gap-2 flex-wrap min-w-0 overflow-hidden" style={{maxWidth: 'calc(100% - 120px)'}}>
                           {interview.techstack.slice(0, 2).map((tech, i) => (
-                            <span key={i} className="text-xs bg-white/10 px-2 py-1 rounded-md text-gray-300 whitespace-nowrap">
+                            <span key={i} className="text-xs bg-white/10 px-2 py-1 rounded-md text-gray-300 whitespace-nowrap truncate" style={{maxWidth: '80px'}}>
                               {tech}
                             </span>
                           ))}
                           {interview.techstack.length > 2 && (
-                            <span className="text-xs text-gray-400 self-center">+{interview.techstack.length - 2}</span>
+                            <span className="text-xs text-gray-400 self-center flex-shrink-0">+{interview.techstack.length - 2}</span>
                           )}
                         </div>
                       </div>

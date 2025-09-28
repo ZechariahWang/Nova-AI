@@ -118,7 +118,7 @@ const page = async () => {
         </div>
 
         {/* Your Interviews - Large Left Block */}
-        <div className="col-span-3 row-span-4 bg-[rgb(22,22,22)] rounded-2xl p-5 shadow-[0_8px_16px_0_#ff34a1] border border-white/5 flex flex-col min-h-0">
+        <div className="col-span-3 row-span-4 bg-[rgb(22,22,22)] rounded-2xl p-5 shadow-[0_8px_16px_0_#ff34a1] border border-white/5 flex flex-col min-h-0 relative z-10 overflow-hidden">
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-4 flex-shrink-0">
             <h2 className="text-white text-xl font-bold whitespace-nowrap">Your Interviews</h2>
             <div className="flex-1 relative">
@@ -142,7 +142,7 @@ const page = async () => {
         </div>
 
         {/* Community Interviews - Large Right Block */}
-        <div className="col-span-3 row-span-4 bg-[rgb(22,22,22)] rounded-2xl p-5 shadow-[0_8px_16px_0_#428fed] border border-white/5 flex flex-col min-h-0">
+        <div className="col-span-3 row-span-4 bg-[rgb(22,22,22)] rounded-2xl p-5 shadow-[0_8px_16px_0_#428fed] border border-white/5 flex flex-col min-h-0 relative z-10 overflow-hidden">
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-4 flex-shrink-0">
             <h2 className="text-white text-xl font-bold whitespace-nowrap">Community Interviews</h2>
             <div className="flex-1 relative">

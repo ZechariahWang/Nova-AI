@@ -16,6 +16,7 @@ const steps = [
     options: [
       { value: 'mixed', label: 'Mixed (Technical & Behavioral)' },
       { value: 'technical', label: 'Technical' },
+      { value: 'coding', label: 'Coding Technical' },
       { value: 'behavioral', label: 'Behavioral' }
     ]
   },
@@ -55,7 +56,7 @@ const InterviewForm = ({ userId }: InterviewFormProps) => {
     role: '',
     level: '',
     techstack: '',
-    amount: 7
+    amount: 3
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
