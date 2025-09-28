@@ -132,3 +132,54 @@ export async function getFeedbackByInterviewId(
     id: feedbackDoc.id, ...feedbackDoc.data()
   } as Feedback;
 }
+
+export async function deleteInterview(params: { interviewId: string; userId: string }) {
+  const { interviewId, userId } = params;
+
+  try {
+    // Verify the interview belongs to the user
+    const interviewDoc = await db.collection("interviews").doc(interviewId).get();
+
+    if (!interviewDoc.exists) {
+      return {
+        success: false,
+        message: "Interview not found",
+      };
+    }
+
+    const interviewData = interviewDoc.data();
+    if (interviewData?.userId !== userId) {
+      return {
+        success: false,
+        message: "Unauthorized to delete this interview",
+      };
+    }
+
+    // Delete the interview
+    await db.collection("interviews").doc(interviewId).delete();
+
+    // Also delete associated feedback if it exists
+    const feedbackQuery = await db
+      .collection("feedbacks")
+      .where("interviewId", "==", interviewId)
+      .where("userId", "==", userId)
+      .get();
+
+    const batch = db.batch();
+    feedbackQuery.docs.forEach((doc) => {
+      batch.delete(doc.ref);
+    });
+    await batch.commit();
+
+    return {
+      success: true,
+      message: "Interview deleted successfully",
+    };
+  } catch (error) {
+    console.error("Error deleting interview:", error);
+    return {
+      success: false,
+      message: "Error deleting interview",
+    };
+  }
+}

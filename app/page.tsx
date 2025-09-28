@@ -1,75 +1,188 @@
+"use client"
+
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 
 const LandingPage = () => {
-  return (
-    <div className="min-h-screen pattern">
-      {/* Navigation */}
-      <nav className="flex items-center justify-between px-8 py-6 max-w-7xl mx-auto">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-r from-[#ff34a1] to-[#00ffc3] rounded-full flex items-center justify-center">
-            <span className="text-black font-bold text-lg">N</span>
-          </div>
-          <span className="text-white text-xl font-bold">Nova</span>
-        </div>
+  const fadeInUp = {
+    initial: { opacity: 0, y: 60 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6, ease: "easeOut" }
+  }
 
-        <div className="flex items-center gap-4">
-          <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20">
-            <Link href="/sign-in">Sign In</Link>
-          </Button>
-          <Button className="btn-primary">
-            <Link href="/sign-up">Get Started</Link>
-          </Button>
-        </div>
-      </nav>
+  const fadeIn = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    transition: { duration: 0.8 }
+  }
+
+  const staggerContainer = {
+    initial: {},
+    animate: {
+      transition: {
+        staggerChildren: 0.1,
+        duration: 0.5
+      }
+    }
+  }
+
+  const staggerItem = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.5 }
+  }
+
+  return (
+    <motion.div
+      className="min-h-screen pattern"
+      initial="initial"
+      animate="animate"
+      variants={fadeIn}
+    >
+      {/* Navigation */}
+      <motion.nav
+        className="flex items-center justify-between px-8 py-6 max-w-7xl mx-auto"
+        variants={staggerContainer}
+        initial="initial"
+        animate="animate"
+      >
+        <motion.div className="flex items-center gap-3" variants={staggerItem}>
+          <motion.div
+            className="w-10 h-10 bg-gradient-to-r from-[#ff34a1] to-[#00ffc3] rounded-full flex items-center justify-center"
+            whileHover={{ scale: 1.05, rotate: 5 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <span className="text-black font-bold text-lg">N</span>
+          </motion.div>
+          <span className="text-white text-xl font-bold">Nova</span>
+        </motion.div>
+
+        <motion.div className="flex items-center gap-4" variants={staggerItem}>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20">
+              <Link href="/sign-in">Sign In</Link>
+            </Button>
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Button className="btn-primary">
+              <Link href="/sign-up">Get Started</Link>
+            </Button>
+          </motion.div>
+        </motion.div>
+      </motion.nav>
 
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-8 py-20">
-        <div className="text-center mb-16">
-          <h1 className="text-6xl font-bold text-white mb-6 leading-tight">
-            Master Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff34a1] to-[#00ffc3]">Interview Skills</span>
-          </h1>
-          <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+      <motion.section className="max-w-7xl mx-auto px-8 py-20">
+        <motion.div
+          className="text-center mb-16"
+          variants={staggerContainer}
+          initial="initial"
+          animate="animate"
+        >
+          <motion.h1
+            className="text-6xl font-bold text-white mb-6 leading-tight"
+            variants={fadeInUp}
+          >
+            Master Your{" "}
+            <motion.span
+              className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff34a1] to-[#00ffc3]"
+              initial={{ backgroundPosition: "0% 50%" }}
+              animate={{ backgroundPosition: "100% 50%" }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "easeInOut"
+              }}
+              style={{ backgroundSize: "200% 100%" }}
+            >
+              Interview Skills
+            </motion.span>
+          </motion.h1>
+          <motion.p
+            className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto"
+            variants={fadeInUp}
+          >
             Practice with AI-powered interview simulations. Get real-time feedback, improve your responses, and become a better candidate.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button className="btn-primary text-lg px-8 py-4">
-              <Link href="/sign-up">Start Practicing</Link>
-            </Button>
+          </motion.p>
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            variants={fadeInUp}
+          >
+            <motion.div
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            >
+              <Button className="btn-primary text-lg px-8 py-4">
+                <Link href="/sign-up">Start Practicing</Link>
+              </Button>
+            </motion.div>
             {/* <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20 text-lg px-8 py-4">
               <Link href="#features">Learn More</Link>
             </Button> */}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Hero Image/Demo */}
-        <div className="relative max-w-4xl mx-auto">
-          <div className="bg-[rgb(22,22,22)] rounded-3xl p-8 shadow-[0_20px_40px_0_rgba(0,255,195,0.2)]">
+        <motion.div
+          className="relative max-w-4xl mx-auto"
+          initial={{ opacity: 0, y: 80 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: 0.4, ease: "easeOut" }}
+        >
+          <motion.div
+            className="bg-[rgb(22,22,22)] rounded-3xl p-8 shadow-[0_20px_40px_0_rgba(0,255,195,0.2)]"
+            whileHover={{ y: -5, boxShadow: "0 25px 50px 0 rgba(0,255,195,0.3)" }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          >
             <div className="flex items-center gap-3 mb-4">
               <div className="w-3 h-3 bg-red-500 rounded-full"></div>
               <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
               <div className="w-3 h-3 bg-green-500 rounded-full"></div>
               <span className="text-gray-400 text-sm ml-4">AI Interview Session</span>
             </div>
-            <div className="space-y-4">
-              <div className="bg-gray-800/50 rounded-lg p-4">
+            <motion.div
+              className="space-y-4"
+              variants={staggerContainer}
+              initial="initial"
+              animate="animate"
+            >
+              <motion.div
+                className="bg-gray-800/50 rounded-lg p-4"
+                variants={staggerItem}
+                whileHover={{ x: 5, backgroundColor: "rgba(55, 65, 81, 0.6)" }}
+              >
                 <p className="text-blue-400 font-semibold mb-2">AI Interviewer:</p>
                 <p className="text-gray-300">"Tell me about a time you overcame a technical challenge."</p>
-              </div>
-              <div className="bg-gray-800/50 rounded-lg p-4">
+              </motion.div>
+              <motion.div
+                className="bg-gray-800/50 rounded-lg p-4"
+                variants={staggerItem}
+                whileHover={{ x: 5, backgroundColor: "rgba(55, 65, 81, 0.6)" }}
+              >
                 <p className="text-green-400 font-semibold mb-2">Your Response:</p>
                 <p className="text-gray-300">"In my previous role, I encountered a performance issue with our database queries..."</p>
-              </div>
-              <div className="bg-gradient-to-r from-[#ff34a1]/20 to-[#00ffc3]/20 rounded-lg p-4 border border-[#00ffc3]/30">
+              </motion.div>
+              <motion.div
+                className="bg-gradient-to-r from-[#ff34a1]/20 to-[#00ffc3]/20 rounded-lg p-4 border border-[#00ffc3]/30"
+                variants={staggerItem}
+                whileHover={{
+                  x: 5,
+                  borderColor: "rgba(0, 255, 195, 0.6)",
+                  boxShadow: "0 0 20px rgba(0, 255, 195, 0.3)"
+                }}
+              >
                 <p className="text-white font-semibold mb-2">✨ AI Feedback:</p>
                 <p className="text-gray-300">Great structure! Consider adding more specific metrics to strengthen your impact.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      </motion.section>
 
 
       {/* <section id="features" className="max-w-7xl mx-auto px-8 py-20">
@@ -137,7 +250,7 @@ const LandingPage = () => {
           </div>
         </div>
       </footer> */}
-    </div>
+    </motion.div>
   )
 }
 
