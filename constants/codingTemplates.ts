@@ -2,9 +2,15 @@
 
 export type SupportedLanguage = 'javascript' | 'typescript' | 'python' | 'java' | 'cpp';
 
+export interface TestCase {
+  input: any[];
+  expected: any;
+}
+
 interface CodingTemplate {
   functionName: string;
   languages: Record<SupportedLanguage, string>;
+  testCases: TestCase[];
 }
 
 // Common coding interview problems and their function signatures
@@ -49,7 +55,12 @@ public:
 
     }
 };`
-    }
+    },
+    testCases: [
+      { input: [[2, 7, 11, 15], 9], expected: [0, 1] },
+      { input: [[3, 2, 4], 6], expected: [1, 2] },
+      { input: [[3, 3], 6], expected: [0, 1] }
+    ]
   },
   "reverse string": {
     functionName: "reverseString",
@@ -89,7 +100,12 @@ public:
 
     }
 };`
-    }
+    },
+    testCases: [
+      { input: [['h', 'e', 'l', 'l', 'o']], expected: ['o', 'l', 'l', 'e', 'h'] },
+      { input: [['H', 'a', 'n', 'n', 'a', 'h']], expected: ['h', 'a', 'n', 'n', 'a', 'H'] },
+      { input: [['a']], expected: ['a'] }
+    ]
   },
   "valid parentheses": {
     functionName: "isValid",
@@ -129,7 +145,14 @@ public:
 
     }
 };`
-    }
+    },
+    testCases: [
+      { input: ["()"], expected: true },
+      { input: ["()[]{}"], expected: true },
+      { input: ["(]"], expected: false },
+      { input: ["([)]"], expected: false },
+      { input: ["{[]}"], expected: true }
+    ]
   },
   "merge two sorted lists": {
     functionName: "mergeTwoLists",
@@ -211,7 +234,12 @@ public:
 
     }
 };`
-    }
+    },
+    testCases: [
+      { input: [[1, 2, 4], [1, 3, 4]], expected: [1, 1, 2, 3, 4, 4] },
+      { input: [[], []], expected: [] },
+      { input: [[], [0]], expected: [0] }
+    ]
   },
   "maximum subarray": {
     functionName: "maxSubArray",
@@ -251,7 +279,12 @@ public:
 
     }
 };`
-    }
+    },
+    testCases: [
+      { input: [[-2, 1, -3, 4, -1, 2, 1, -5, 4]], expected: 6 },
+      { input: [[1]], expected: 1 },
+      { input: [[5, 4, -1, 7, 8]], expected: 23 }
+    ]
   },
   "binary search": {
     functionName: "search",
@@ -293,7 +326,12 @@ public:
 
     }
 };`
-    }
+    },
+    testCases: [
+      { input: [[-1, 0, 3, 5, 9, 12], 9], expected: 4 },
+      { input: [[-1, 0, 3, 5, 9, 12], 2], expected: -1 },
+      { input: [[5], 5], expected: 0 }
+    ]
   },
   "fibonacci": {
     functionName: "fibonacci",
@@ -330,7 +368,13 @@ public:
 
     }
 };`
-    }
+    },
+    testCases: [
+      { input: [2], expected: 1 },
+      { input: [3], expected: 2 },
+      { input: [4], expected: 3 },
+      { input: [5], expected: 5 }
+    ]
   },
   "palindrome": {
     functionName: "isPalindrome",
@@ -370,7 +414,12 @@ public:
 
     }
 };`
-    }
+    },
+    testCases: [
+      { input: ["A man, a plan, a canal: Panama"], expected: true },
+      { input: ["race a car"], expected: false },
+      { input: [" "], expected: true }
+    ]
   },
   "climbing stairs": {
     functionName: "climbStairs",
@@ -407,7 +456,12 @@ public:
 
     }
 };`
-    }
+    },
+    testCases: [
+      { input: [2], expected: 2 },
+      { input: [3], expected: 3 },
+      { input: [5], expected: 8 }
+    ]
   },
   "best time to buy and sell stock": {
     functionName: "maxProfit",
@@ -447,7 +501,12 @@ public:
 
     }
 };`
-    }
+    },
+    testCases: [
+      { input: [[7, 1, 5, 3, 6, 4]], expected: 5 },
+      { input: [[7, 6, 4, 3, 1]], expected: 0 },
+      { input: [[2, 4, 1]], expected: 2 }
+    ]
   }
 };
 
@@ -505,6 +564,22 @@ export function getInitialCodingCode(questions: string[], language: string): str
   }
 
   return getDefaultCodeForLanguage(language);
+}
+
+// Function to get test cases for a question
+export function getTestCases(questions: string[]): TestCase[] | null {
+  if (!questions || questions.length === 0) {
+    return null;
+  }
+
+  const firstQuestion = questions[0];
+  const template = findCodingTemplate(firstQuestion);
+
+  if (template && template.testCases) {
+    return template.testCases;
+  }
+
+  return null;
 }
 
 // Fallback to default code if no template matches

@@ -14,8 +14,7 @@ const steps = [
     id: 'type',
     question: 'What type of interview would you like?',
     options: [
-      { value: 'mixed', label: 'Mixed (Technical & Behavioral)' },
-      { value: 'technical', label: 'Technical' },
+      // { value: 'mixed', label: 'Mixed (Technical & Behavioral)' },
       { value: 'coding', label: 'Coding Technical' },
       { value: 'behavioral', label: 'Behavioral' }
     ]
@@ -23,7 +22,7 @@ const steps = [
   {
     id: 'role',
     question: 'What role are you interviewing for?',
-    placeholder: 'e.g., Frontend Developer, Backend Engineer, etc.'
+    placeholder: 'Frontend Developer, Backend Engineer, etc.'
   },
   {
     id: 'level',
@@ -36,14 +35,14 @@ const steps = [
   },
   {
     id: 'techstack',
-    question: 'What technologies should we focus on?',
-    placeholder: 'e.g., next.js,react,typescript'
+    question: 'What question(s) do you want to be asked?',
+    placeholder: 'Two Sum, Behavioural, etc'
   },
   {
     id: 'amount',
     question: 'How many questions would you like?',
     min: 1,
-    max: 10
+    max: 5
   }
 ];
 
@@ -56,7 +55,7 @@ const InterviewForm = ({ userId }: InterviewFormProps) => {
     role: '',
     level: '',
     techstack: '',
-    amount: 3
+    amount: 1
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -142,7 +141,11 @@ const InterviewForm = ({ userId }: InterviewFormProps) => {
 
             <div className="flex flex-col gap-6">
               {currentStepData.options ? (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className={`grid gap-4 ${
+                  currentStepData.id === 'type'
+                    ? 'grid-cols-1 md:grid-cols-2 max-w-lg mx-auto'
+                    : 'grid-cols-1 md:grid-cols-3'
+                }`}>
                   {currentStepData.options.map(option => (
                     <button
                       key={option.value}

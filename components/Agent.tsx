@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { StringValidation } from 'zod';
 import { vapi } from '@/lib/vapi.sdk';
 import { interviewer, codingInterviewer } from '@/constants';
-import { getInitialCodingCode } from '@/constants/codingTemplates';
+import { getInitialCodingCode, getTestCases } from '@/constants/codingTemplates';
 import Editor from '@monaco-editor/react';
 
 enum CallStatus {
@@ -29,8 +29,8 @@ const Agent = ({ userName, userId, type, interviewId, interviewType, questions }
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
   const [messages, setMessages] = useState<SavedMessages[]>([]);
-  const [code, setCode] = useState('// Write your code here\nconsole.log("Hello, World!");');
-  const [language, setLanguage] = useState('javascript');
+  const [code, setCode] = useState('# Write your code here\nprint("Hello, World!")');
+  const [language, setLanguage] = useState('python');
   const [output, setOutput] = useState('');
   const [isRunning, setIsRunning] = useState(false);
   const [lastCodeChange, setLastCodeChange] = useState(Date.now());
@@ -234,9 +234,6 @@ const Agent = ({ userName, userId, type, interviewId, interviewType, questions }
       // Add to UI log
       setCodeLog(prev => [logEntry, ...prev.slice(0, 9)]); // Keep last 10 entries
 
-      // Update output to show logging happened
-      setOutput(prev => `[${new Date().toLocaleTimeString()}] Code ${interviewType === 'coding' ? 'sent to AI!' : 'logged!'}\n${prev}`);
-
       console.log('CODE PROCESSING COMPLETED');
     }, 15000); // Increased to 15 seconds for smoother AI interaction
 
@@ -275,6 +272,9 @@ const Agent = ({ userName, userId, type, interviewId, interviewType, questions }
     setOutput('Running...');
 
     try {
+      // Get test cases if available
+      const testCases = interviewType === 'coding' ? getTestCases(questions || []) : null;
+
       const response = await fetch('/api/execute-code', {
         method: 'POST',
         headers: {
@@ -283,6 +283,8 @@ const Agent = ({ userName, userId, type, interviewId, interviewType, questions }
         body: JSON.stringify({
           code,
           language,
+          testCases,
+          questions,
         }),
       });
 
@@ -407,7 +409,7 @@ const Agent = ({ userName, userId, type, interviewId, interviewType, questions }
                         </>
                       )}
                     </button>
-                    {interviewType === 'coding' && (
+                    {/* {interviewType === 'coding' && (
                       <button
                         onClick={() => sendCodeToAI(code, language, true)}
                         disabled={callStatus !== CallStatus.ACTIVE || !code.trim()}
@@ -418,7 +420,7 @@ const Agent = ({ userName, userId, type, interviewId, interviewType, questions }
                         </svg>
                         Share Code
                       </button>
-                    )}
+                    )} */}
                   </div>
                 </div>
               </div>
@@ -450,7 +452,7 @@ const Agent = ({ userName, userId, type, interviewId, interviewType, questions }
                       </svg>
                       <span className="text-sm font-medium text-gray-300">Output:</span>
                     </div>
-                    <pre className="bg-gray-900 text-gray-100 p-3 rounded text-sm overflow-x-auto whitespace-pre-wrap max-h-32 overflow-y-auto">
+                    <pre className="bg-gray-900 text-gray-100 p-3 rounded text-sm overflow-x-auto whitespace-pre-wrap max-h-32 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                       {output}
                     </pre>
                   </div>
