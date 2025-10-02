@@ -42,8 +42,6 @@ const Agent = ({ userName, userId, type, interviewId, interviewType, questions }
   const languages = [
     { id: 'javascript', name: 'JavaScript', defaultCode: '// Write your code here\nconsole.log("Hello, World!");' },
     { id: 'python', name: 'Python', defaultCode: '# Write your code here\nprint("Hello, World!")' },
-    { id: 'java', name: 'Java', defaultCode: 'public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello, World!");\n    }\n}' },
-    { id: 'cpp', name: 'C++', defaultCode: '#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << "Hello, World!" << endl;\n    return 0;\n}' },
     { id: 'typescript', name: 'TypeScript', defaultCode: '// Write your code here\nconsole.log("Hello, World!");' },
   ];
 

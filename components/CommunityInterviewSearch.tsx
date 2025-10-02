@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import dayjs from 'dayjs'
+import { usePathname } from 'next/navigation'
 
 interface CommunityInterviewSearchProps {
   interviews: Interview[]
@@ -11,6 +12,13 @@ interface CommunityInterviewSearchProps {
 
 export default function CommunityInterviewSearch({ interviews }: CommunityInterviewSearchProps) {
   const [searchTerm, setSearchTerm] = useState('')
+  const [loadingInterviewId, setLoadingInterviewId] = useState<string | null>(null)
+  const pathname = usePathname()
+
+  // Clear loading state when pathname changes
+  useEffect(() => {
+    setLoadingInterviewId(null)
+  }, [pathname])
 
   // Listen for external search input
   useEffect(() => {
@@ -110,12 +118,30 @@ export default function CommunityInterviewSearch({ interviews }: CommunityInterv
                       </div>
 
                       <div className="flex gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity justify-end sm:justify-start flex-shrink-0">
-                        <Button className="bg-gradient-to-r from-[#428fed]/90 to-[#3b82f6]/90 hover:from-[#428fed] hover:to-[#3b82f6] text-white text-xs px-3 py-1.5 transition-all duration-300 ease-out shadow-sm hover:shadow-md border border-[#428fed]/20 hover:border-[#428fed]/40 backdrop-blur-sm self-center font-medium">
-                          <Link href={`/interview/${interview.id}`} className="flex items-center gap-1.5">
-                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.01M15 10h1.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span className="text-[10px] font-medium">Try</span>
+                        <Button
+                          className="bg-gradient-to-r from-[#428fed]/90 to-[#3b82f6]/90 hover:from-[#428fed] hover:to-[#3b82f6] text-white text-xs px-3 py-1.5 transition-all duration-300 ease-out shadow-sm hover:shadow-md border border-[#428fed]/20 hover:border-[#428fed]/40 backdrop-blur-sm self-center font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                          disabled={loadingInterviewId === interview.id}
+                        >
+                          <Link
+                            href={`/interview/${interview.id}`}
+                            className="flex items-center gap-1.5"
+                            onClick={() => setLoadingInterviewId(interview.id)}
+                          >
+                            {loadingInterviewId === interview.id ? (
+                              <>
+                                <svg className="w-3 h-3 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                                <span className="text-[10px] font-medium">Loading...</span>
+                              </>
+                            ) : (
+                              <>
+                                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.01M15 10h1.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span className="text-[10px] font-medium">Try</span>
+                              </>
+                            )}
                           </Link>
                         </Button>
                       </div>

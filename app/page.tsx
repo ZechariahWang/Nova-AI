@@ -1,12 +1,20 @@
 "use client"
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { usePathname } from 'next/navigation'
 
 const LandingPage = () => {
+  const [loadingPath, setLoadingPath] = useState<string | null>(null)
+  const pathname = usePathname()
+
+  // Clear loading state when pathname changes
+  useEffect(() => {
+    setLoadingPath(null)
+  }, [pathname])
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },
     animate: { opacity: 1, y: 0 },
@@ -62,14 +70,36 @@ const LandingPage = () => {
 
         <motion.div className="flex items-center gap-4" variants={staggerItem}>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20">
-              <Link href="/sign-in">Sign In</Link>
-            </Button>
+            <Link href="/sign-in" onClick={() => setLoadingPath('/sign-in')}>
+              <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20">
+                {loadingPath === '/sign-in' ? (
+                  <>
+                    <svg className="size-4 animate-spin mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    Loading...
+                  </>
+                ) : (
+                  'Sign In'
+                )}
+              </Button>
+            </Link>
           </motion.div>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button className="btn-primary">
-              <Link href="/sign-up">Get Started</Link>
-            </Button>
+            <Link href="/sign-up" onClick={() => setLoadingPath('/sign-up')}>
+              <Button className="btn-primary">
+                {loadingPath === '/sign-up' ? (
+                  <>
+                    <svg className="size-4 animate-spin mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    Loading...
+                  </>
+                ) : (
+                  'Get Started'
+                )}
+              </Button>
+            </Link>
           </motion.div>
         </motion.div>
       </motion.nav>
@@ -117,9 +147,20 @@ const LandingPage = () => {
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              <Button className="btn-primary text-lg px-8 py-4">
-                <Link href="/sign-up">Start Practicing</Link>
-              </Button>
+              <Link href="/sign-up" onClick={() => setLoadingPath('/sign-up')}>
+                <Button className="btn-primary text-lg px-8 py-4">
+                  {loadingPath === '/sign-up' ? (
+                    <>
+                      <svg className="size-5 animate-spin mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      </svg>
+                      Loading...
+                    </>
+                  ) : (
+                    'Start Practicing'
+                  )}
+                </Button>
+              </Link>
             </motion.div>
             {/* <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20 text-lg px-8 py-4">
               <Link href="#features">Learn More</Link>
@@ -188,10 +229,10 @@ const LandingPage = () => {
       {/* <section id="features" className="max-w-7xl mx-auto px-8 py-20">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-white mb-6">
-            Why Choose Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff34a1] to-[#00ffc3]">AI Trainer</span>
+            About <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff34a1] to-[#00ffc3]">Nova</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Get personalized interview practice with cutting-edge AI technology
+            Nova AI is a 
           </p>
         </div>
 
@@ -234,7 +275,7 @@ const LandingPage = () => {
         </div>
       </section>  */}
 
-      {/* <footer className="border-t border-white/10 mt-20">
+      <footer className="border-t border-white/10 mt-60">
         <div className="max-w-7xl mx-auto px-8 py-8">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center gap-3 mb-4 md:mb-0">
@@ -245,11 +286,11 @@ const LandingPage = () => {
             </div>
 
             <div className="text-gray-400 text-sm">
-              © 2024 Nova. All rights reserved.
+              Made by Zechariah Wang
             </div>
           </div>
         </div>
-      </footer> */}
+      </footer>
     </motion.div>
   )
 }
